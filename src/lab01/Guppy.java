@@ -46,6 +46,44 @@ public class Guppy {
         this.identificationNumber = numberOfGuppiesBorn;
     }
 
+    public String getGenus() {
+        return this.genus;
+    }
+
+    public String getSpecies() {
+        return this.species;
+    }
+
+    public int getAgeInWeeks() {
+        return this.ageInWeeks;
+    }
+
+    public boolean getIsFemale() {
+        return this.isFemale;
+    }
+
+    public int getGenerationNumber() {
+        return this.generationNumber;
+    }
+
+    public boolean getIsAlive() {
+        return this.isAlive;
+    }
+
+    public double getHealthCoefficient() {
+        return this.healthCoefficient;
+    }
+
+    public int getIdentificationNumber() {
+        return this.identificationNumber;
+    }
+
+    public static int getNumberOfGuppiesBorn() {
+        return numberOfGuppiesBorn;
+    }
+
+
+
     private String formatGenus(String genus) {
         genus = genus.strip();
         return genus.substring(0, 1).toUpperCase() + genus.substring(1).toLowerCase();
