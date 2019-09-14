@@ -82,7 +82,48 @@ public class Guppy {
         return numberOfGuppiesBorn;
     }
 
+    public void setAgeInWeeks(int ageInWeeks) {
+        if (ageInWeeks >= 0 && ageInWeeks <= MAXIMUM_AGE_IN_WEEKS) {
+            this.ageInWeeks = ageInWeeks;
+        }
+    }
 
+    public void setAlive(boolean isAlive) {
+        this.isAlive = isAlive;
+    }
+
+    public void setHealthCoefficient(double healthCoefficient) {
+        if (healthCoefficient >= MINIMUM_HEALTH_COEFFICIENT && healthCoefficient <= MAXIMUM_HEALTH_COEFFICIENT) {
+            this.healthCoefficient = healthCoefficient;
+        }
+    }
+
+    public void incrementAge() {
+        this.ageInWeeks ++;
+        if (this.ageInWeeks > MAXIMUM_AGE_IN_WEEKS) {
+            this.isAlive = false;
+        }
+    }
+
+    public double getVolumeNeeded() {
+        if (this.ageInWeeks < 10) {
+            return MINIMUM_WATER_VOLUME_ML;
+        } else if (this.ageInWeeks <= 30) {
+            return MINIMUM_WATER_VOLUME_ML * ageInWeeks / YOUNG_FISH_AGE_IN_WEEKS;
+        } else if (this.ageInWeeks <= 50) {
+            return MINIMUM_WATER_VOLUME_ML * 1.5;
+        } else {
+            return 0.0;
+        }
+    }
+
+    public void changeHealthCoefficient(double delta) {
+        this.healthCoefficient = Math.min(this.healthCoefficient += delta, MAXIMUM_HEALTH_COEFFICIENT);
+        if (this.healthCoefficient < MINIMUM_HEALTH_COEFFICIENT) {
+            this.healthCoefficient = 0.0;
+            this.isAlive = false;
+        }
+    }
 
     private String formatGenus(String genus) {
         genus = genus.strip();
