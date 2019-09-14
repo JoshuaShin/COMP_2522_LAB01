@@ -104,13 +104,12 @@ public class Guppy {
      * Constructs a default Guppy.
      */
     public Guppy() {
+        numberOfGuppiesBorn ++;
         this.genus = DEFAULT_GENUS;
         this.species = DEFAULT_SPECIES;
         this.isFemale = true;
         this.isAlive = true;
         this.healthCoefficient = DEFAULT_HEALTH_COEFFICIENT;
-
-        numberOfGuppiesBorn ++;
         this.identificationNumber = numberOfGuppiesBorn;
     }
 
@@ -125,6 +124,7 @@ public class Guppy {
      * @param newHealthCoefficient  a double
      */
     public Guppy(String newGenus, String newSpecies, int newAgeInWeeks, boolean newIsFemale, int newGenerationNumber, double newHealthCoefficient) {
+        numberOfGuppiesBorn ++;
         this.genus = formatGenus(newGenus);
         this.species = formatSpecies(newSpecies);
         this.ageInWeeks = formatAgeInWeeks(newAgeInWeeks);
@@ -132,9 +132,159 @@ public class Guppy {
         this.isAlive = true;
         this.generationNumber = formatGenerationNumber(newGenerationNumber);
         this.healthCoefficient = formatHealthCoefficient(newHealthCoefficient);
-
-        numberOfGuppiesBorn ++;
         this.identificationNumber = numberOfGuppiesBorn;
+    }
+
+    /**
+     * Gets genus.
+     *
+     * @return genus in as a String
+     */
+    public String getGenus() {
+        return this.genus;
+    }
+
+    /**
+     * Gets species.
+     *
+     * @return species as a String
+     */
+    public String getSpecies() {
+        return this.species;
+    }
+
+    /**
+     * Gets age in weeks.
+     *
+     * @return age in weeks as an int
+     */
+    public int getAgeInWeeks() {
+        return this.ageInWeeks;
+    }
+
+    /**
+     * Gets true if female, else false.
+     *
+     * @return true if female, else false
+     */
+    public boolean getIsFemale() {
+        return this.isFemale;
+    }
+
+    /**
+     * Gets generation number.
+     *
+     * @return generation number as an int
+     */
+    public int getGenerationNumber() {
+        return this.generationNumber;
+    }
+
+    /**
+     * Gets true if alive, else false.
+     *
+     * @return true if alive, else false
+     */
+    public boolean getIsAlive() {
+        return this.isAlive;
+    }
+
+    /**
+     * Gets health coefficient.
+     *
+     * @return health coefficient as a double
+     */
+    public double getHealthCoefficient() {
+        return this.healthCoefficient;
+    }
+
+    /**
+     * Gets identification number.
+     *
+     * @return identification number as an int
+     */
+    public int getIdentificationNumber() {
+        return this.identificationNumber;
+    }
+
+    /**
+     * Gets total number of Guppy created.
+     *
+     * @return total number of Guppy as an int
+     */
+    public static int getNumberOfGuppiesBorn() {
+        return numberOfGuppiesBorn;
+    }
+
+    /**
+     * Sets ageInWeeks with given value.
+     *
+     * @param ageInWeeks an int
+     */
+    public void setAgeInWeeks(int ageInWeeks) {
+        if (ageInWeeks >= 0 && ageInWeeks <= MAXIMUM_AGE_IN_WEEKS) {
+            this.ageInWeeks = ageInWeeks;
+        }
+    }
+
+    /**
+     * Sets isAlive with given boolean.
+     *
+     * @param isAlive a boolean
+     */
+    public void setAlive(boolean isAlive) {
+        this.isAlive = isAlive;
+    }
+
+    /**
+     * Sets healthCoefficient with given double.
+     *
+     * @param healthCoefficient a double
+     */
+    public void setHealthCoefficient(double healthCoefficient) {
+        if (healthCoefficient >= MINIMUM_HEALTH_COEFFICIENT && healthCoefficient <= MAXIMUM_HEALTH_COEFFICIENT) {
+            this.healthCoefficient = healthCoefficient;
+        }
+    }
+
+    /**
+     * Increments ageInWeeks by one week.
+     */
+    public void incrementAge() {
+        this.ageInWeeks ++;
+        if (this.ageInWeeks > MAXIMUM_AGE_IN_WEEKS) {
+            this.isAlive = false;
+        }
+    }
+
+    /**
+     * Gets volume of water needed in mL for this guppy.
+     *
+     * @return volume of water needed in mL as double
+     */
+    public double getVolumeNeeded() {
+        if (this.ageInWeeks < 10) {
+            return MINIMUM_WATER_VOLUME_ML;
+        } else if (this.ageInWeeks <= 30) {
+            return MINIMUM_WATER_VOLUME_ML * ageInWeeks / YOUNG_FISH_AGE_IN_WEEKS;
+        } else if (this.ageInWeeks <= 50) {
+            return MINIMUM_WATER_VOLUME_ML * 1.5;
+        } else {
+            return 0.0;
+        }
+    }
+
+    /**
+     * Adds given delta to current health coefficient.
+     *
+     * @param delta a double
+     */
+    public void changeHealthCoefficient(double delta) {
+        this.healthCoefficient = Math.min(this.healthCoefficient += delta, MAXIMUM_HEALTH_COEFFICIENT);
+        if (this.healthCoefficient < MINIMUM_HEALTH_COEFFICIENT) {
+            this.healthCoefficient = 0.0;
+            this.isAlive = false;
+        }
     }
 
     /**
@@ -179,158 +329,6 @@ public class Guppy {
                 identificationNumber == guppy.identificationNumber &&
                 Objects.equals(genus, guppy.genus) &&
                 Objects.equals(species, guppy.species);
-    }
-
-    /**
-     * Get genus.
-     *
-     * @return genus in as a String
-     */
-    public String getGenus() {
-        return this.genus;
-    }
-
-    /**
-     * Get species.
-     *
-     * @return species as a String
-     */
-    public String getSpecies() {
-        return this.species;
-    }
-
-    /**
-     * Get age in weeks.
-     *
-     * @return age in weeks as an int
-     */
-    public int getAgeInWeeks() {
-        return this.ageInWeeks;
-    }
-
-    /**
-     * Get true if female, else false.
-     *
-     * @return true if female, else false
-     */
-    public boolean getIsFemale() {
-        return this.isFemale;
-    }
-
-    /**
-     * Get generation number.
-     *
-     * @return generation number as an int
-     */
-    public int getGenerationNumber() {
-        return this.generationNumber;
-    }
-
-    /**
-     * Get true if alive, else false.
-     *
-     * @return true if alive, else false
-     */
-    public boolean getIsAlive() {
-        return this.isAlive;
-    }
-
-    /**
-     * Get health coefficient.
-     *
-     * @return health coefficient as a double
-     */
-    public double getHealthCoefficient() {
-        return this.healthCoefficient;
-    }
-
-    /**
-     * Get identification number.
-     *
-     * @return identification number as an int
-     */
-    public int getIdentificationNumber() {
-        return this.identificationNumber;
-    }
-
-    /**
-     * Get total number of Guppy created.
-     *
-     * @return total number of Guppy as an int
-     */
-    public static int getNumberOfGuppiesBorn() {
-        return numberOfGuppiesBorn;
-    }
-
-    /**
-     * Set ageInWeeks with given value.
-     *
-     * @param ageInWeeks an int
-     */
-    public void setAgeInWeeks(int ageInWeeks) {
-        if (ageInWeeks >= 0 && ageInWeeks <= MAXIMUM_AGE_IN_WEEKS) {
-            this.ageInWeeks = ageInWeeks;
-        }
-    }
-
-    /**
-     * Set isAlive with given boolean.
-     *
-     * @param isAlive a boolean
-     */
-    public void setAlive(boolean isAlive) {
-        this.isAlive = isAlive;
-    }
-
-    /**
-     * Set healthCoefficient with given double.
-     *
-     * @param healthCoefficient a double
-     */
-    public void setHealthCoefficient(double healthCoefficient) {
-        if (healthCoefficient >= MINIMUM_HEALTH_COEFFICIENT && healthCoefficient <= MAXIMUM_HEALTH_COEFFICIENT) {
-            this.healthCoefficient = healthCoefficient;
-        }
-    }
-
-    /**
-     * Increment ageInWeeks by one week.
-     */
-    public void incrementAge() {
-        this.ageInWeeks ++;
-        if (this.ageInWeeks > MAXIMUM_AGE_IN_WEEKS) {
-            this.isAlive = false;
-        }
-    }
-
-    /**
-     * Get volume of water needed in mL for this guppy.
-     *
-     * @return volume of water needed in mL as double
-     */
-    public double getVolumeNeeded() {
-        if (this.ageInWeeks < 10) {
-            return MINIMUM_WATER_VOLUME_ML;
-        } else if (this.ageInWeeks <= 30) {
-            return MINIMUM_WATER_VOLUME_ML * ageInWeeks / YOUNG_FISH_AGE_IN_WEEKS;
-        } else if (this.ageInWeeks <= 50) {
-            return MINIMUM_WATER_VOLUME_ML * 1.5;
-        } else {
-            return 0.0;
-        }
-    }
-
-    /**
-     * Add given delta to current health coefficient.
-     *
-     * @param delta a double
-     */
-    public void changeHealthCoefficient(double delta) {
-        this.healthCoefficient = Math.min(this.healthCoefficient += delta, MAXIMUM_HEALTH_COEFFICIENT);
-        if (this.healthCoefficient < MINIMUM_HEALTH_COEFFICIENT) {
-            this.healthCoefficient = 0.0;
-            this.isAlive = false;
-        }
     }
 
     private String formatGenus(String genus) {
