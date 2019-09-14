@@ -187,7 +187,6 @@ public class GuppyTest {
                 0 ,
                 0.5);
         assertTrue(fry.getSpecies().equals(Guppy.DEFAULT_SPECIES));
-
     }
 
     @Test
