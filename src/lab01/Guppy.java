@@ -21,4 +21,53 @@ public class Guppy {
     private boolean isAlive;
     private double healthCoefficient;
     private int identificationNumber;
+
+    public Guppy() {
+        this.genus = DEFAULT_GENUS;
+        this.species = DEFAULT_SPECIES;
+        this.isFemale = true;
+        this.isAlive = true;
+        this.healthCoefficient = DEFAULT_HEALTH_COEFFICIENT;
+
+        numberOfGuppiesBorn ++;
+        this.identificationNumber = numberOfGuppiesBorn;
+    }
+
+    public Guppy(String newGenus, String newSpecies, int newAgeInWeeks, boolean newIsFemale, int newGenerationNumber, double newHealthCoefficient) {
+        this.genus = formatGenus(newGenus);
+        this.species = formatSpecies(newSpecies);
+        this.ageInWeeks = formatAgeInWeeks(newAgeInWeeks);
+        this.isFemale = newIsFemale;
+        this.isAlive = true;
+        this.generationNumber = formatGenerationNumber(newGenerationNumber);
+        this.healthCoefficient = formatHealthCoefficient(newHealthCoefficient);
+
+        numberOfGuppiesBorn ++;
+        this.identificationNumber = numberOfGuppiesBorn;
+    }
+
+    private String formatGenus(String genus) {
+        genus = genus.strip();
+        return genus.substring(0, 1).toUpperCase() + genus.substring(1).toLowerCase();
+    }
+
+    private String formatSpecies(String species) {
+        return species.strip().toLowerCase();
+    }
+
+    private int formatAgeInWeeks(int ageInWeeks) {
+        return Math.max(0, ageInWeeks);
+    }
+
+    private int formatGenerationNumber(int generationNumber) {
+        return Math.max(1, generationNumber);
+    }
+
+    private double formatHealthCoefficient(double healthCoefficient) {
+        if (healthCoefficient > MAXIMUM_HEALTH_COEFFICIENT) {
+            return MAXIMUM_HEALTH_COEFFICIENT;
+        } else {
+            return Math.max(MINIMUM_HEALTH_COEFFICIENT, healthCoefficient);
+        }
+    }
 }
