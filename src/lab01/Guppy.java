@@ -1,5 +1,7 @@
 package lab01;
 
+import java.util.Objects;
+
 public class Guppy {
 
     public static final int YOUNG_FISH_AGE_IN_WEEKS = 10;
@@ -44,6 +46,39 @@ public class Guppy {
 
         numberOfGuppiesBorn ++;
         this.identificationNumber = numberOfGuppiesBorn;
+    }
+
+    @Override
+    public String toString() {
+        return "Guppy{" +
+                "genus='" + genus + '\'' +
+                ", species='" + species + '\'' +
+                ", ageInWeeks=" + ageInWeeks +
+                ", isFemale=" + isFemale +
+                ", generationNumber=" + generationNumber +
+                ", isAlive=" + isAlive +
+                ", healthCoefficient=" + healthCoefficient +
+                ", identificationNumber=" + identificationNumber +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Guppy guppy = (Guppy) o;
+        return ageInWeeks == guppy.ageInWeeks &&
+                isFemale == guppy.isFemale &&
+                generationNumber == guppy.generationNumber &&
+                isAlive == guppy.isAlive &&
+                Double.compare(guppy.healthCoefficient, healthCoefficient) == 0 &&
+                identificationNumber == guppy.identificationNumber &&
+                Objects.equals(genus, guppy.genus) &&
+                Objects.equals(species, guppy.species);
     }
 
     public String getGenus() {
